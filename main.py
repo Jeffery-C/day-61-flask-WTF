@@ -1,10 +1,12 @@
 from flask import Flask, render_template, url_for, request
+from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, validators
 from wtforms.validators import DataRequired
 import os
 
 # pip install email-validator
+# pip install Flask-Bootstrap
 
 
 class MyForm(FlaskForm):
@@ -26,7 +28,14 @@ def check_login(form: MyForm) -> bool:
     return True
 
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
+    Bootstrap(app)
+    return app
+
+
+app = create_app()
+
 SECRET_KEY = os.urandom(32)
 print(SECRET_KEY)
 app.config['SECRET_KEY'] = SECRET_KEY
